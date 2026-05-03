@@ -35,7 +35,10 @@ const authLimiter = rateLimit({
 
 // Middlewares
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: [
+    "https://tu-frontend-one.vercel.app",
+    "http://localhost:5174"
+  ],
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
@@ -47,7 +50,7 @@ app.use(sanitizeInput);
 
 // Servir archivos estaticos (comprobantes de pago)
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-
+	
 // Rutas API
 app.use('/api/auth', authLimiter, require('./routes/auth'));
 app.use('/api/solicitudes', require('./routes/solicitudes'));
